@@ -14,11 +14,11 @@ driver.get("https://www.govtrack.us/congress/members/current")
 WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="maincontent"]/div[2]/section/div/div[2]')))
 body = driver.find_element(By.XPATH, '//*[@id="maincontent"]/div[2]/section/div/div[2]')
 
-As = driver.find_elements(By.TAG_NAME, "a")
+As = body.find_elements(By.TAG_NAME, "a")
 trDATA = []
 for a in As:
     trDATA.append(a.get_attribute('href'))
-print(trDATA)
+    print(trDATA)
 
 driver.quit()
 
