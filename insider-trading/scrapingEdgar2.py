@@ -9,12 +9,13 @@ from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-companies = ['Apple Inc.', 'Microsoft Corp']
+companies = ['Apple Inc.', 'MICROSOFT CORP']
 
 compainyData = []
 for company in companies:
     driver.get(f"https://www.sec.gov/cgi-bin/srch-edgar?text=%28{company}%29")
     pageData = []
+    x = 0
     while True:
         time.sleep(.3)
         try:
@@ -41,7 +42,11 @@ for company in companies:
             trDATA.append(text.get_attribute('href'))
         pageData.append(trDATA)
         try:
-            driver.find_element(By.XPATH, '/html/body/div/center[1]/a[2]').click()
+            if x == 0:
+                driver.find_element(By.XPATH, '/html/body/div/center[1]/a[2]').click()
+                x += 1
+            else:
+                break
         except Exception:
             break
     compainyData.append(pageData)
