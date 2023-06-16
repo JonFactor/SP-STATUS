@@ -14,7 +14,7 @@ import dateutil.relativedelta
 sleepDur = 10
 
 # user work needed
-
+### TODO ###
 pswrdData = 'Millwood45'
 plantData = ['US8X', 'US8Y']
 week = False
