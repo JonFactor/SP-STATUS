@@ -11,7 +11,7 @@ from datetime import date
 # pre-starting
 sleepDur = 10
 userData = 'PL_FACTORS'
-pswrdData = 'Millwood43'
+pswrdData = 'Millwood45'
 plantData = ['US8X', 'US8Y']
 today = date.today()
 todaySparced = str(today).split('-')
@@ -75,36 +75,52 @@ for plant in plantData:
     plantAccept = driver.find_element(By.XPATH, '//*[@id="accept"]')
     plantAccept.click()
     
-    # open start date
-    startDateEntry = driver.find_element(By.XPATH, '//*[@id="__jsview26--DataFrom-icon"]')
-    startDateEntry.click()
+    #skip dates?
+    skipDates = True
 
-    # get month btn
-    startMonthBtn = driver.find_element(By.XPATH, '//*[@id="__jsview26--DataFrom-cal--Head-B1"]' )
+    if not skipDates:
+        # open start date
+        startDateEntry = driver.find_element(By.XPATH, '//*[@id="__jsview26--DataFrom-icon"]')
+        startDateEntry.click()
 
-    # see if months match
-    if not currentMonth ==  startMonthBtn.text:
-        # open month selection
-        startMonthBtn.click()
-        # get conatiner for months
-        startMonthCon = driver.find_element(By.XPATH, '//*[@id="__jsview26--DataFrom-cal--MP"]')
-        # get rows in container
-        startMonthRows = startMonthCon.find_elements(By.TAG_NAME, 'div')
-        # iterate through rows
-        for row in startMonthRows:
-            # get cols from row
-            startMonthCols = row.find_elements(By.TAG_NAME, 'div')
-            for col in startMonthCols:
-                #check if match
-                if col.text is currentMonth:
-                    col.click()
-                    break
-    else: pass
+        # get month btn
+        startMonthBtn = driver.find_element(By.XPATH, '//*[@id="__jsview26--DataFrom-cal--Head-B1"]' )
 
+        # see if months match
+        if not currentMonth ==  startMonthBtn.text:
+            # open month selection
+            startMonthBtn.click()
+            # get conatiner for months
+            startMonthCon = driver.find_element(By.XPATH, '//*[@id="__jsview26--DataFrom-cal--MP"]')
+            # get rows in container
+            startMonthRows = startMonthCon.find_elements(By.TAG_NAME, 'div')
+            # iterate through rows
+            for row in startMonthRows:
+                # get cols from row
+                startMonthCols = row.find_elements(By.TAG_NAME, 'div')
+                for col in startMonthCols:
+                    #check if match
+                    if col.text is currentMonth:
+                        col.click()
+                        break
+        else: pass
+
+        # get container of rows
+        startDayCon = driver.find_element(By.XPATH, '//*[@id="__jsview26--DataFrom-cal--Month0-days"]')
+        # get the rows inside of container
+        startDayRows = startDayCon.find_elements(By.TAG_NAME, 'div')
+        #iterate through rows
+        for row in startDayRows:
+            # get cols in rows
+            startMonthCols = ''
+            ##### TODO #####
+            # fix date selection
+            ################
     # open end date
 
     # submit
-
+    submitBtn = driver.find_element(By.XPATH, '//*[@id="__button10-content"]')
+    submitBtn.click()
 
 time.sleep(10000)
 
